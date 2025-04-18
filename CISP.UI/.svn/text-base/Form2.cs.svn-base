@@ -1,0 +1,27 @@
+﻿using System;
+using System.Windows.Forms;
+
+namespace CISP.UI
+{
+	public partial class Form2 : Form
+	{
+		public Form2()
+		{
+			InitializeComponent();
+		}
+
+		#region handle button, click events
+		// handle david button, click event
+		private void button1_Click(object sender, EventArgs e)
+		{	// dialog result of ok, means davids going first
+			this.Close();
+		}
+
+		// handle them button, click event
+		private void button2_Click(object sender, EventArgs e)
+		{	// dialog result of cancel, means opponent going first
+			this.Close();
+		}
+		#endregion
+	}
+}

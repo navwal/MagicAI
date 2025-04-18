@@ -1,0 +1,70 @@
+﻿namespace CISP.UI
+{
+    class Card
+    {
+        #region attributes
+        // attributes
+		private string idx;
+        private string name;
+        private string type;
+        private string color;
+        #endregion
+
+        #region constructors
+        // default constructors
+        public Card()
+        {
+			this.idx = "";
+            this.name = "";
+            this.type = "";
+            this.color = "";
+        }
+
+        // overloaded constructor
+        public Card(string idx, string name, string type, string color)
+        {
+			this.idx = idx;
+            this.name = name;
+            this.type = type;
+            this.color = color;
+        }
+        #endregion
+
+        #region accessors and mutators
+		// index attribute accessor and mutator
+		public string Idx
+		{
+			get { return idx; }
+			set { idx = value; }
+		}
+
+		// name attribute accessor and mutator
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        // type attribute accessor and mutator
+        public string Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
+
+        // color attribute accessor and mutator
+        public string Color
+        {
+            get { return color; }
+            set { color = value; }
+        }
+        #endregion
+
+        #region overridden ToString() method
+        public override string ToString()
+        {
+            return Name;
+        }
+        #endregion
+    }
+}
