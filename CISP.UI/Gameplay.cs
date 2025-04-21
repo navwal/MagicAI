@@ -295,6 +295,9 @@ namespace CISP.UI
                 case "Main Again":
                     richTextBox1.Text = gameEngine.Main_2();
                     break;
+                case "End":
+                    richTextBox1.Text = gameEngine.End();
+                    break;
             }
             
         }

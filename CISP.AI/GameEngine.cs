@@ -115,22 +115,28 @@ namespace CISP.AI
             List<Card> opland = oland;
             List<Card> spells = new List<Card>();
 
-            int[] landcount = new int[2] { 0, 0 };
-            int[] olandcount = new int[2] { 0, 0 };
+            int[] landcount = new int[3] { 0, 0, 0 };
+            int[] olandcount = new int[3] { 0, 0, 0 };
             string target = "";
 
             foreach (Card n in mland)
             {
                 if (n.Color == "Green")
                     landcount[0]++;
-                else landcount[1]++;
+                else if (n.Color == "Red")
+                    landcount[1]++;
+                else
+                    landcount[2]++;
             }
 
             foreach (Card n in opland)
             {
                 if (n.Color == "Green")
                     olandcount[0]++;
-                else olandcount[1]++;
+                else if (n.Color == "Red")
+                    olandcount[1]++;
+                else
+                    olandcount[2]++;
             }
             foreach (Card n in hand)
             {
@@ -149,6 +155,7 @@ namespace CISP.AI
             }
             foreach (Card n in spells)
             {
+                //fix "Non-Forest" lands to swamps and mountains
                 if (n.Keyword.Contains("Destroy land"))
                 {
                     if (olandcount[0] < olandcount[1] && olandcount[0] > 0)
@@ -298,7 +305,8 @@ namespace CISP.AI
             List<Card> Lands = new List<Card>();
             List<Card> Creature = new List<Card>();
             List<Card> Enchant = new List<Card>();
-            int[] mana = new int[2] { 0, 0 };
+            int[] mana = new int[3] { 0, 0, 0 };
+            //fix "Non-Forest" lands to swamps and mountains
             foreach (Card n in landcount)
             {
                 if (n.Color == "Green")
@@ -315,6 +323,7 @@ namespace CISP.AI
                     Enchant.Add(n);
             }
             Creature = Creature.OrderBy(x => x.Power).ToList();
+            //fix "Non-Forest" lands to swamps and mountains
             foreach (Card n in landcount)
             {
                 if (n.Color == "Green")
@@ -324,6 +333,7 @@ namespace CISP.AI
             }
             if (!landplayed && Lands.Count > 0)
             {
+                //fix "Non-Forest" lands to swamps and mountains
                 landplayed = true;
                 if (mana[1] == 0)
                 {
@@ -369,7 +379,8 @@ namespace CISP.AI
             List<Card> Lands = myLand;
             List<Card> Instants = new List<Card>();
             List<Card> Creatures = new List<Card>();
-            int[] mana = new int[2] { 0, 0 };
+            int[] mana = new int[3] { 0, 0 , 0};
+            //fix "Non-Forest" lands to swamps and mountains
             for (int i = 0; i < Lands.Count; i++)
             {
                 if (Lands[i].Color == "Green")
@@ -454,10 +465,11 @@ namespace CISP.AI
         {
             int colorless = spellcard.Mananocol;
             int colored = spellcard.Manacol;
-            int[] mana = new int[2] { 0, 0 };
-            string[] tap = new string[landcount.Count];
+            int[] mana = new int[3] { 0, 0, 0 };
+            string[] tap = new string[landcount.Count + 1];
 
             //fix here
+            //fix "Non-Forest" lands to swamps and mountains
             foreach (Card card in landcount)
             {
                 if (card.Color == "Green")
@@ -465,7 +477,7 @@ namespace CISP.AI
                 else
                     mana[1]++;
             }
-
+            //fix "Non-Forest" lands to swamps and mountains
             if (spellcard.Color == "Green")
             {
                 mana[0] = mana[0] - spellcard.Manacol;
@@ -479,12 +491,12 @@ namespace CISP.AI
                     tap[i] = "Non forest land";
             }
             int c = colored;
+            //fix "Non-Forest" lands to swamps and mountains
             while (colorless > 0)
             {
                 if (mana[0] == 0)
                 {
                     tap[c] = "Non forest Land";
-                    c++;
                 }
                 else if (mana[1] == 0)
                 {
@@ -493,13 +505,12 @@ namespace CISP.AI
                 else if (colorless % 2 == 0)
                 {
                     tap[c] = "Non forest Land";
-                    c++;
                 }
                 else
                 {
                     tap[c] = "Forest";
-                    c++;
                 }
+                c++;
                 colorless--;
             }
             return tap;
@@ -508,7 +519,8 @@ namespace CISP.AI
         {
             card.Keyword = "";
             List<Card> Lands = myLand;
-            int[] mana = new int[2] { 0, 0 };
+            int[] mana = new int[3] { 0, 0, 0 };
+            //fix "Non-Forest" lands to swamps and mountains
             foreach (Card c in Lands)
             {
                 if (c.Color == "Green")
@@ -538,6 +550,7 @@ namespace CISP.AI
                         return true;
                 }
             }
+            //fix "Non-Forest" lands to swamps and mountains
             else
             {
                 color = Lands[1] - spell.Manacol;
