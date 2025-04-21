@@ -835,7 +835,7 @@ namespace CISP.UI
         {
             if (textBox2.Text == "Untap")
             {
-                foreach (Card item in listBox7.Items)
+                foreach (Card item in listBox8.Items)
                 {
                     if (item.Type == "Land")
                     {
