@@ -359,6 +359,7 @@ namespace CISP.AI
                 else
                     mana[2]++;
             }
+            // Good up to here
             foreach (Card n in hand)
             {
                 if (n.Type == "Land")
@@ -653,7 +654,7 @@ namespace CISP.AI
                     if (color >= spell.Mananocol)
                         return true;
                 }
-                else if (color == 0)
+                else if (color == 0 && spell.Mananocol == 0)
                 {
                     return true;
                 }
@@ -669,7 +670,7 @@ namespace CISP.AI
                     if (color >= spell.Mananocol)
                         return true;
                 }
-                else if (color == 0)
+                else if (color == 0 && spell.Mananocol == 0)
                     return true;
             }
             else
@@ -681,7 +682,7 @@ namespace CISP.AI
                     if (color >= spell.Mananocol)
                         return true;
                 }
-                else if (color == 0)
+                else if (color == 0 && spell.Mananocol == 0)
                     return true;
             }
             return false;
