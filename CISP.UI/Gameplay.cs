@@ -535,6 +535,8 @@ namespace CISP.UI
                 {
                     listBox5.Items.Add(listBox2.SelectedItem);
                     listBox2.Items.Remove(listBox2.SelectedItem);
+                   
+                    
                 }
                 else if (a.Type == "Summon")
                 {
@@ -739,6 +741,7 @@ namespace CISP.UI
                 {
                     listBox10.Items.Add(listBox4.SelectedItem);
                     listBox4.Items.Remove(listBox4.SelectedItem);
+                    gameEngine.myLand.Remove(a);
                 }
                 else if (a.Type == "Summon")
                 {

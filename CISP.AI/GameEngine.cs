@@ -11,11 +11,11 @@ namespace CISP.AI
 {
     public class GameEngine
     {
-        List<Card> myHand = new List<Card>();
-        List<Card> myLand = new List<Card>();
+        public List<Card> myHand = new List<Card>();
+        public List<Card> myLand = new List<Card>();
         List<Card> myBoard = new List<Card>();
         List<Card> myTapped = new List<Card>();
-
+        
         List<Card> oland = new List<Card>();
         List<Card> oboard = new List<Card>();
         List<Card> otapped = new List<Card>();
@@ -42,6 +42,7 @@ namespace CISP.AI
             {
                 if (n.Type == "Land")
                 {
+                    myLand.Add(n);
                     if (landname[0] == "")
                     {
                         landname[0] = n.Color;
@@ -341,6 +342,7 @@ namespace CISP.AI
             string output;
             List<Card> hand = myHand;
             List<Card> landcount = myLand;
+            
 
             List<Card> Lands = new List<Card>();
             List<Card> Creature = new List<Card>();
@@ -384,15 +386,18 @@ namespace CISP.AI
                 //fixed
                 landplayed = true;
                 //add ai to look at spells to prioritize those color Lands first
-                if (manainhand[1] == 0 || manainhand[2] == 0)
+                if (manainhand[0] >= 1)
+                //if (manainhand[1] == 0 || manainhand[2] == 0)
                 {
                     return "Play a Forest";
                 }
-                else if (manainhand[0] == 0 || manainhand[2] == 0)
+                else if (manainhand[1] >= 1)
+                //else if (manainhand[0] == 0 || manainhand[2] == 0)
                 {
                     return "Play a Mountain";
                 }
-                else if (manainhand[0] == 0 || manainhand[1] == 0)
+                else if (manainhand[2] >= 1)
+                //else if (manainhand[0] == 0 || manainhand[1] == 0)
                 {
                     return "Play a Swamp";
                 }
@@ -400,11 +405,11 @@ namespace CISP.AI
                 {
                     if (mana[0] > mana[1] && manainhand[1] > 0)
                     {
-                        return "play a Mountain";
+                        return "play a mountain";
                     }
                     else if (mana[0] > mana[2] && manainhand[2] > 0)
                     {
-                        return "Play a Swamp";
+                        return "Play a swamp";
                     }
                     //Fix this
                     else if (manainhand[0] > 0)
@@ -493,6 +498,7 @@ namespace CISP.AI
                         foreach (Card m in Creatures)
                         {
                             if (n.Power >= m.Toughness)
+
                                 Cast(n, Lands, m.Name);
                         }
                     }
@@ -566,15 +572,18 @@ namespace CISP.AI
             //fixed
             while (colorless > 0)
             {
-                if (mana[0] == 0 && mana[2] == 0)
+                //if (mana[0] == 0 && mana[2] == 0)
+                if (mana[1] >= 1)
                 {
                     tap[c] = "Mountain";
                 }
-                else if (mana[0] == 0 && mana[1] == 0)
+                //else if (mana[0] == 0 && mana[1] == 0)
+                else if (mana[2] >= 1)
                 {
                     tap[c] = "Swamp";
                 }
-                else if (mana[1] == 0 && mana[2] == 0)
+                //else if (mana[1] == 0 && mana[2] == 0)
+                else if (mana[0] >= 1)
                 {
                     tap[c] = "Forest";
                 }
