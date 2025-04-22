@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 
 using CISP.AI;
+using System.Linq;
 
 namespace CISP.UI
 {
@@ -256,6 +257,7 @@ namespace CISP.UI
 
             string parts = textBox3.Text;
             string steps = textBox1.Text;
+            string osteps = textBox2.Text;
 
             gameEngine.GetMyUIGameState(getHand(), getBoard(), getLands(), getTapped());
             gameEngine.GetOppUIGameState(getOppBoard(), getOppLands(), getOppTapped());
@@ -273,10 +275,10 @@ namespace CISP.UI
                     }
                     break;
                 case "Begin":
-                    richTextBox1.Text = gameEngine.Begin(steps);
+                    richTextBox1.Text = gameEngine.Begin(steps) + " If it is not your turn press opponent next.";
                     break;
                 case "Main":
-                    richTextBox1.Text = gameEngine.Main_1();
+                    richTextBox1.Text = gameEngine.Main_1() + " If it is not your turn press opponent next.";
                     break;
                 case "Combat":
                     if (steps == "Attackers")
@@ -285,18 +287,29 @@ namespace CISP.UI
                     }
                     else if (steps == "Damage")
                     {
-                        richTextBox1.Text = "Remove any creatures that died";
+                        richTextBox1.Text = "Remove any creatures that died and press next.";
+                    }
+                    else if (steps == "Blockers")
+                    {
+                        richTextBox1.Text = gameEngine.Defend();
                     }
                     else 
                     {
-                        richTextBox1.Text = "Go to next step";
+                        richTextBox1.Text = "Go to next step. If it is not your turn press opponent next.";
                     }
                     break;
                 case "Main Again":
-                    richTextBox1.Text = gameEngine.Main_2();
+                    richTextBox1.Text = gameEngine.Main_2() + " If it is not your turn press opponent next.";
                     break;
                 case "End":
-                    richTextBox1.Text = gameEngine.End();
+                    if (steps == "Wait")
+                    {
+                        richTextBox1.Text = gameEngine.End_opponent();
+                    }
+                    else
+                    {
+                        richTextBox1.Text = gameEngine.End();
+                    }
                     break;
             }
             

@@ -20,6 +20,8 @@ namespace CISP.AI
         List<Card> oboard = new List<Card>();
         List<Card> otapped = new List<Card>();
 
+        int damage;
+
         bool landplayed = false;
         public string Start()
         {
@@ -75,7 +77,7 @@ namespace CISP.AI
                 lands = true;
             }
             if (lands && match && mana)
-                return "keep and go to next step";
+                return "keep. Press next if its your turn otherwise press opponent next";
             else
                 return "Mulligan";
         }
@@ -96,7 +98,9 @@ namespace CISP.AI
                 {
                     if (n.Keyword == "Echo")
                     {
-                        Echo(n);
+                        string echo = "";
+                        echo = Echo(n);
+                        return echo;
                     }
                 }
                 return "Go to next step";
@@ -214,7 +218,7 @@ namespace CISP.AI
             List<Card> Attackers = new List<Card>();
             foreach (Card n in board)
             {
-                if (n.Sick)
+                if (n.Type == "Summon")
                     Creatures.Add(n);
             }
             foreach (Card n in opboard)
@@ -224,19 +228,24 @@ namespace CISP.AI
             }
 
             //Sort Creatures by lowest power first
-            Creatures = Attackers.OrderBy(x => x.Power).ToList();
+            Creatures = Creatures.OrderBy(x => x.Power).ToList();
             Creatures.Reverse();
             //Sort blockers by toughness
             Blockers = Blockers.OrderBy(x => x.Toughness).ToList();
+            string creaturestoattackwith = "";
             // If we have no creatures able to attack, skip to next phase
             if (Creatures.Count == 0)
             {
-                return "Pass to Second Main Phase.";
+                return "Hit next until Main_2 Phase.";
             }
             // If our opponent has no blockers, attack with everything we can
             else if (Blockers.Count == 0)
             {
-                return "attack with" + Creatures.ToString();
+                for (int i = 0; i < Creatures.Count; i++)
+                {
+                    creaturestoattackwith += Creatures[i].Name + ", ";
+                }
+                return "attack with " + creaturestoattackwith;
             }
             // Compares our creatures toughness with blocker power and only attacks with creatures that will survive
             for (int i = 0; i < Creatures.Count; i++)
@@ -250,9 +259,15 @@ namespace CISP.AI
                 }
             }
             if (Attackers.Count > 0)
-                return "Attack with" + Attackers.ToString();
+            {
+                for (int i = 0; i < Attackers.Count; i++)
+                {
+                    creaturestoattackwith += Attackers[i].Name + ", ";
+                }
+                return "Attack with " + creaturestoattackwith;
+            }
             else
-                return "Pass to Second Main Phase.";
+                return "Hit next until Main_2 Phase  .";
         }
         public string Defend()
         {
@@ -263,6 +278,10 @@ namespace CISP.AI
             List<Card> Attackers = new List<Card>();
             List<Card> Creatures = new List<Card>();
             List<Card> Spells = new List<Card>();
+
+            int damage = 0;
+
+            string blockers = "";
             foreach (Card n in optapped)
             {
                 if (n.Type == "Summon")
@@ -280,24 +299,41 @@ namespace CISP.AI
                     Spells.Add(n);
             }
             List<string> Block = new List<string>();
+            List<Card> Unblocked = new List<Card>();
             Attackers = Attackers.OrderBy(x => x.Power).ToList();
             Creatures = Creatures.OrderBy(x => x.Toughness).ToList();
             Creatures.Reverse();
+            foreach (Card n in Attackers)
+            {
+                Unblocked.Add(n);
+            }
             for (int i = Creatures.Count - 1; i > 0; i--)
             {
                 for (int j = 0; j < Attackers.Count; j++)
                 {
                     if (Creatures[i].Toughness > Attackers[j].Toughness)
                     {
-                        Block.Add("Block");
+                        Block.Add("Block ");
                         Block.Add(Attackers[j].Name);
-                        Block.Add("With");
+                        Block.Add("With ");
                         Block.Add(Creatures[i].Name);
+                        Unblocked.Remove(Attackers[j]);
                     }
                 }
             }
+            foreach (Card card in Unblocked)
+            {
+                damage += card.Power;
+            }
+            string damagedealt = Damage(damage);
             if (Block.Count > 0)
-                return Block.ToString();
+            {
+                foreach (string s in Block)
+                {
+                    blockers += s + " ";
+                }
+                return blockers + damagedealt;
+            }
             return "Pass to next step";
         }
         public string Main_2()
@@ -371,7 +407,7 @@ namespace CISP.AI
                         return "Play a Swamp";
                     }
                     //Fix this
-                    else
+                    else if (manainhand[0] > 0)
                     {
                         return "play a forest";
                     }
@@ -392,7 +428,7 @@ namespace CISP.AI
         }
         public string End()
         {
-            return "Pass to next phase";
+            return "Hit next until you pass the turn";
         }
         public string End_opponent()
         {
@@ -580,7 +616,12 @@ namespace CISP.AI
             if (ManaCost(card, mana))
             {
                 string[] tap = TapLands(card, Lands);
-                return "Pay echo by tapping " + tap.ToString();
+                string landtotap = "";
+                foreach (string s in tap)
+                {
+                    landtotap += s + ", ";
+                }
+                return "Pay echo by tapping " + landtotap;
             }
             return "Sacrifice " + card.Name;
         }
@@ -636,10 +677,13 @@ namespace CISP.AI
             }
             return false;
         }
-        /*void Haste(Card Creature, List<Card> Lands)
-            {
-
-            }*/
+        public string Damage(int damage)
+        {
+            string damagedealt = "";
+            damagedealt = Convert.ToString(damage);
+            damage = 0;
+            return ". Subtract " + damagedealt + " From your life total";
+        }
         public void GetMyUIGameState(List<Card> hand, List<Card> board, List<Card> Lands, List<Card> Tapped)
         {
             myHand = hand;
