@@ -489,14 +489,14 @@ namespace CISP.AI
                 Creatures = Creatures.OrderBy(x => x.Toughness).ToList();
                 foreach (Card n in Instants)
                 {
-                    if (n.Keyword == "Destroy Creature" && ManaCost(n, mana))
+                    if (n.Keyword.Contains("Destroy Creature") && ManaCost(n, mana))
                     {
                         if (n.Name == "Expunge")
                         {
                             for (int i = 0; i < Creatures.Count; i++)
                             {
                                 if (Creatures[i].Color != "Black")
-                                    Cast(n, Lands, Creatures[i].Name);
+                                    return Cast(n, Lands, Creatures[i].Name);
                             }
                         }
                         else if (n.Name == "Swat")
@@ -504,17 +504,17 @@ namespace CISP.AI
                             for (int i = 0; i < Creatures.Count; i++)
                             {
                                 if (Creatures[i].Power < 3)
-                                    Cast(n, Lands, Creatures[i].Name);
+                                    return Cast(n, Lands, Creatures[i].Name);
                             }
                         }
                     }
-                    else if (n.Keyword == "Damage Creature" && ManaCost(n, mana))
+                    else if (n.Keyword.Contains("Damage Creature") && ManaCost(n, mana))
                     {
                         foreach (Card m in Creatures)
                         {
                             if (n.Power >= m.Toughness)
 
-                                Cast(n, Lands, m.Name);
+                                return Cast(n, Lands, m.Name);
                         }
                     }
                 }
