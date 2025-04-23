@@ -189,41 +189,66 @@ namespace CISP.UI
 
 			#region load up the card decks
 			// create the card deck arrays
-			Card[] c = new Card[27];    // all cards
+			Card[] c = new Card[51];    // all cards
 			Card[] d = new Card[15];    // black/green
 			Card[] f = new Card[14];    // green/red
 
 			// all cards, from both decks
+            // Alphabetize
 			c[0] = new Card("for", "Forest", "Land", "Green", -1, -1, -1, -1, "Land", false);
 			c[1] = new Card("sym", "Symbiosis", "Instant", "Green", 1, 1, 2, 2, "Buff", false);
-			c[2] = new Card("pou", "Pouncing Jaguar", "Summon", "Green", 0, 1, 2, 2, "Echo", true);
-			c[3] = new Card("bla", "Blanchwood Treefolk", "Summon", "Green", 4, 1, 4, 5, "", true);
-			c[4] = new Card("win", "Winding Wurm", "Summon", "Green", 4, 1, 6, 6, "Echo", true);
-			c[5] = new Card("mou", "Mountain", "Land", "Red", -1, -1, -1, -1, "Land", false);
-			c[6] = new Card("fie", "Fiery Mantle", "Enchant", "Red", 1, 1, 1, 0, "Mana Buff", false);
-			c[7] = new Card("sho", "Shower of Sparks", "Instant", "Red", 0, 1, 1, 0, "Damage Creature and Player", false);
-			c[8] = new Card("hea", "Heat Ray", "Instant", "Red", 1, 1, 1, 0, "Mana Damage Creature", false);
-			c[9] = new Card("arc", "Arc Lightning", "Sorcery", "Red", 2, 1, 3, 0, "Damage Creature or Player", false);
-			c[10] = new Card("pat", "Goblin Patrol", "Summon", "Red", 0, 1, 2, 1, "Echo", true);
-			c[11] = new Card("bug", "Goblin War Buggy", "Summon", "Red", 1, 1, 2, 2, "Echo", false);
-			c[12] = new Card("rai", "Goblin Raider", "Summon", "Red", 1, 1, 2, 2, "Cannot Block", true);
-			c[13] = new Card("via", "Viashino Outrider", "Summon", "Red", 2, 1, 4, 3, "Echo", true);
-			c[14] = new Card("mul", "Multani's Acolyte", "Summon", "Green", 0, 2, 2, 1, "Echo", true);
-			c[15] = new Card("acr", "Acridian", "Summon", "Green", 1, 1, 2, 4, "Echo", true);
-			c[16] = new Card("gor", "Gorilla Warrior", "Summon", "Green", 2, 1, 3, 2, "", true);
-			c[17] = new Card("gra", "Yavimaya Granger", "Summon", "Green", 2, 1, 2, 2, "Echo", true);
-			c[18] = new Card("sci", "Yavimaya Scion", "Summon", "Green", 4, 1, 4, 4, "", true);
-			c[19] = new Card("swa", "Swamp", "Land", "Black", -1, -1, -1, -1, "Land", false);
-			c[20] = new Card("exp", "Expunge", "Instant", "Black", 2, 1, 0, 3, "Destroy Creature Non-Black/Cycle", false);
-			c[21] = new Card("swt", "Swat", "Instant", "Black", 1, 2, 0, 2, "Destroy Creature Power 2 or Less/Cycle", false);
-			c[22] = new Card("bef", "Befoul", "Sorcery", "Black", 2, 2, 0, 3, "Destroy Land or Non-Black Creature", false);
-			c[23] = new Card("cor", "Corrupt", "Sorcery", "Black", 5, 1, 1, 0, "Damage Creature or Player equal to swamps", false);
-			c[24] = new Card("phy", "Phyrexian Debaser", "Summon", "Black", 3, 1, 2, 2, "Flying/Tap,Sac give Creature -2/-2", true);
-			c[25] = new Card("gia", "Giant Cockroach", "Summon", "Black", 3, 1, 4, 2, "", true);
-			c[26] = new Card("hol", "Hollow Dogs", "Summon", "Black", 4, 1, 3, 3, "Buff power on attack by 2", true);
+			c[2] = new Card("pou", "Pouncing Jaguar (1)", "Summon", "Green", 0, 1, 2, 2, "Echo", true);
+            c[3] = new Card("pou", "Pouncing Jaguar (2)", "Summon", "Green", 0, 1, 2, 2, "Echo", true);
+            c[4] = new Card("pou", "Pouncing Jaguar (3)", "Summon", "Green", 0, 1, 2, 2, "Echo", true);
+            c[5] = new Card("pou", "Pouncing Jaguar (4)", "Summon", "Green", 0, 1, 2, 2, "Echo", true);
+            c[6] = new Card("bla", "Blanchwood Treefolk", "Summon", "Green", 4, 1, 4, 5, "", true);
+            c[7] = new Card("win", "Winding Wurm (1)", "Summon", "Green", 4, 1, 6, 6, "Echo", true);
+            c[8] = new Card("win", "Winding Wurm (2)", "Summon", "Green", 4, 1, 6, 6, "Echo", true);
+            c[9] = new Card("win", "Winding Wurm (3)", "Summon", "Green", 4, 1, 6, 6, "Echo", true);
+            c[10] = new Card("win", "Winding Wurm (4)", "Summon", "Green", 4, 1, 6, 6, "Echo", true);
+            c[11] = new Card("mou", "Mountain", "Land", "Red", -1, -1, -1, -1, "Land", false);
+			c[12] = new Card("fie", "Fiery Mantle", "Enchant", "Red", 1, 1, 1, 0, "Mana Buff", false);
+			c[13] = new Card("sho", "Shower of Sparks", "Instant", "Red", 0, 1, 1, 0, "Damage Creature and Player", false);
+			c[14] = new Card("hea", "Heat Ray", "Instant", "Red", 1, 1, 1, 0, "Mana Damage Creature", false);
+			c[15] = new Card("arc", "Arc Lightning", "Sorcery", "Red", 2, 1, 3, 0, "Damage Creature or Player", false);
+			c[16] = new Card("pat", "Goblin Patrol (1)", "Summon", "Red", 0, 1, 2, 1, "Echo", true);
+            c[17] = new Card("pat", "Goblin Patrol (2)", "Summon", "Red", 0, 1, 2, 1, "Echo", true);
+            c[18] = new Card("pat", "Goblin Patrol (3)", "Summon", "Red", 0, 1, 2, 1, "Echo", true);
+            c[19] = new Card("pat", "Goblin Patrol (4)", "Summon", "Red", 0, 1, 2, 1, "Echo", true);
+            c[20] = new Card("bug", "Goblin War Buggy (1)", "Summon", "Red", 1, 1, 2, 2, "Echo", false);
+            c[21] = new Card("bug", "Goblin War Buggy (2)", "Summon", "Red", 1, 1, 2, 2, "Echo", false);
+            c[22] = new Card("bug", "Goblin War Buggy (3)", "Summon", "Red", 1, 1, 2, 2, "Echo", false);
+            c[23] = new Card("bug", "Goblin War Buggy (4)", "Summon", "Red", 1, 1, 2, 2, "Echo", false);
+            c[24] = new Card("rai", "Goblin Raider", "Summon", "Red", 1, 1, 2, 2, "Cannot Block", true);
+			c[25] = new Card("via", "Viashino Outrider (1)", "Summon", "Red", 2, 1, 4, 3, "Echo", true);
+            c[26] = new Card("via", "Viashino Outrider (2)", "Summon", "Red", 2, 1, 4, 3, "Echo", true);
+            c[27] = new Card("via", "Viashino Outrider (3)", "Summon", "Red", 2, 1, 4, 3, "Echo", true);
+            c[28] = new Card("via", "Viashino Outrider (4)", "Summon", "Red", 2, 1, 4, 3, "Echo", true);
+            c[29] = new Card("mul", "Multani's Acolyte (1)", "Summon", "Green", 0, 2, 2, 1, "Echo", true);
+            c[30] = new Card("mul", "Multani's Acolyte (2)", "Summon", "Green", 0, 2, 2, 1, "Echo", true);
+            c[31] = new Card("mul", "Multani's Acolyte (3)", "Summon", "Green", 0, 2, 2, 1, "Echo", true);
+            c[32] = new Card("mul", "Multani's Acolyte (4)", "Summon", "Green", 0, 2, 2, 1, "Echo", true);
+            c[33] = new Card("acr", "Acridian", "Summon (1)", "Green", 1, 1, 2, 4, "Echo", true);
+            c[34] = new Card("acr", "Acridian", "Summon (2)", "Green", 1, 1, 2, 4, "Echo", true);
+            c[35] = new Card("acr", "Acridian", "Summon (3)", "Green", 1, 1, 2, 4, "Echo", true);
+            c[36] = new Card("acr", "Acridian", "Summon (4)", "Green", 1, 1, 2, 4, "Echo", true);
+            c[37] = new Card("gor", "Gorilla Warrior", "Summon", "Green", 2, 1, 3, 2, "", true);
+			c[38] = new Card("gra", "Yavimaya Granger (1)", "Summon", "Green", 2, 1, 2, 2, "Echo", true);
+            c[39] = new Card("gra", "Yavimaya Granger (2)", "Summon", "Green", 2, 1, 2, 2, "Echo", true);
+            c[40] = new Card("gra", "Yavimaya Granger (3)", "Summon", "Green", 2, 1, 2, 2, "Echo", true);
+            c[41] = new Card("gra", "Yavimaya Granger (4)", "Summon", "Green", 2, 1, 2, 2, "Echo", true);
+            c[42] = new Card("sci", "Yavimaya Scion", "Summon", "Green", 4, 1, 4, 4, "", true);
+			c[43] = new Card("swa", "Swamp", "Land", "Black", -1, -1, -1, -1, "Land", false);
+			c[44] = new Card("exp", "Expunge", "Instant", "Black", 2, 1, 0, 3, "Destroy Creature Non-Black/Cycle", false);
+			c[45] = new Card("swt", "Swat", "Instant", "Black", 1, 2, 0, 2, "Destroy Creature Power 2 or Less/Cycle", false);
+			c[46] = new Card("bef", "Befoul", "Sorcery", "Black", 2, 2, 0, 3, "Destroy Land or Non-Black Creature", false);
+			c[47] = new Card("cor", "Corrupt", "Sorcery", "Black", 5, 1, 1, 0, "Damage Creature or Player equal to swamps", false);
+			c[48] = new Card("phy", "Phyrexian Debaser", "Summon", "Black", 3, 1, 2, 2, "Flying/Tap,Sac give Creature -2/-2", true);
+			c[49] = new Card("gia", "Giant Cockroach", "Summon", "Black", 3, 1, 4, 2, "", true);
+			c[50] = new Card("hol", "Hollow Dogs", "Summon", "Black", 4, 1, 3, 3, "Buff power on attack by 2", true);
 
 			// black and green deck
-			d[0] = c[0]; d[1] = c[2]; d[2] = c[14]; d[3] = c[15];
+			/*d[0] = c[0]; d[1] = c[2]; d[2] = c[14]; d[3] = c[15];
 			d[4] = c[16]; d[5] = c[17]; d[6] = c[18]; d[7] = c[19];
 			d[8] = c[20]; d[9] = c[21]; d[10] = c[22]; d[11] = c[23];
 			d[12] = c[24]; d[13] = c[25]; d[14] = c[26];
@@ -232,22 +257,24 @@ namespace CISP.UI
 			f[0] = c[0]; f[1] = c[1]; f[2] = c[2]; f[3] = c[3];
 			f[4] = c[4]; f[5] = c[5]; f[6] = c[6]; f[7] = c[7];
 			f[8] = c[8]; f[9] = c[9]; f[10] = c[10]; f[11] = c[11];
-			f[12] = c[12]; f[13] = c[13];
+			f[12] = c[12]; f[13] = c[13];*/
 			#endregion
             
             // add button to choose the deck
 			#region load up the card list boxes
-			foreach (Card i in d)   // My Deck, David Krogmann
+			for (int i = 0; i < c.Length; i++) // My Deck, David Krogmann
 			{   // add the card to the listbox
-				listBox1.Items.Add(i);
-                listBox3.Items.Add(i);
+				listBox1.Items.Add(c[i]);
+                listBox3.Items.Add(c[i]);
 			}
+            
 
-			foreach (Card j in c)   // Opponents Cards
+			/*foreach (Card j in c)   // Opponents Cards
 			{   // add the card to the listbox
 				listBox3.Items.Add(j);
                 listBox1.Items.Add(j);
-			}
+			}*/
+
 			#endregion
 		}
 		//advisor button
