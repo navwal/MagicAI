@@ -162,32 +162,45 @@ namespace CISP.AI
             {
                 //fix "Non-Forest" lands to swamps and mountains
                 //fixed
-                if (n.Keyword.Contains("Destroy land"))
+                if (n.Keyword.Contains("Destroy Land"))
                 {
-                    if (olandcount[0] < olandcount[1] && olandcount[0] > 0 || olandcount[0] < olandcount[2] && olandcount[0] > 0)
+                    if (/*olandcount[0] < olandcount[1] && */olandcount[0] > 0 /*|| olandcount[0] < olandcount[2] && olandcount[0] > 0*/)
                         target = "Forest";
                     else if (olandcount[1] > 0)
                         target = "Mountain";
                     else if (olandcount[2] > 0)
                         target = "Swamp";
-                    Cast(n, mland, target);
+                    return Cast(n, mland, target);
                 }
                 else if (n.Keyword.Contains("Destroy Creature") && obfield.Count > 0)
                 {
                     if (obfield.Count == 1 && obfield[0].Color != "Black")
                     {
                         target = n.Name;
-                        Cast(n, mland, target);
+                        return Cast(n, mland, target);
                     }
                 }
                 else if (n.Keyword.Contains("Damage Creature"))
                 {
+                    if (n.Name == "Corrupt")
+                    {
+                        if (obfield.Count == 1)
+                        {
+                            target = obfield[0].Name;
+                            return Cast(n, mland, target);
+                        }
+                        else
+                        {
+                            target = "Opponent";
+                            return Cast(n, mland, target);
+                        }
+                    }
                     if (obfield.Count == 1)
                     {
                         if (n.Power >= obfield[0].Toughness)
                         {
                             target = obfield[0].Name;
-                            Cast(n, mland, target);
+                            return Cast(n, mland, target);
                         }
                     }
                     else if (obfield.Count > 1)
@@ -203,7 +216,7 @@ namespace CISP.AI
                             }
                         }
                         if (target != "")
-                            Cast(n, mland, target);
+                            return Cast(n, mland, target);
                     }
                 }
             }
@@ -227,6 +240,7 @@ namespace CISP.AI
                 if (n.Type == "Summon")
                     Blockers.Add(n);
             }
+
 
             //Sort Creatures by lowest power first
             Creatures = Creatures.OrderBy(x => x.Power).ToList();
@@ -577,16 +591,19 @@ namespace CISP.AI
                 if (mana[1] >= 1)
                 {
                     tap[c] = "Mountain";
+                    mana[1]--;
                 }
                 //else if (mana[0] == 0 && mana[1] == 0)
                 else if (mana[2] >= 1)
                 {
                     tap[c] = "Swamp";
+                    mana[2]--;
                 }
                 //else if (mana[1] == 0 && mana[2] == 0)
                 else if (mana[0] >= 1)
                 {
                     tap[c] = "Forest";
+                    mana[0]--;
                 }
                 else if (colorless % 2 == 0 && mana[2] == 0)
                 {
@@ -679,6 +696,7 @@ namespace CISP.AI
                 if (color > 0)
                 {
                     color = color + Lands[0];
+                    color = color + Lands[1];
                     if (color >= spell.Mananocol)
                         return true;
                 }
