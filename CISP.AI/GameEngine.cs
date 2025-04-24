@@ -330,9 +330,9 @@ namespace CISP.AI
             {
                 foreach(Card n in Creatures)
                 {
-                    if (Creatures[i].Name == "Goblin Raider")
+                    if (n.Name == "Goblin Raider")
                     {
-                        Creatures.Remove(Creatures[i]);
+                        Creatures.Remove(n);
                     }
                 }
                 for (int j = 0; j < Attackers.Count; j++)
