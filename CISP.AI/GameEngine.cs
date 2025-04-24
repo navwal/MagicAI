@@ -328,12 +328,15 @@ namespace CISP.AI
             }
             for (int i = Creatures.Count - 1; i > 0; i--)
             {
-                for (int j = 0; j < Attackers.Count; j++)
+                foreach(Card n in Creatures)
                 {
                     if (Creatures[i].Name == "Goblin Raider")
                     {
                         Creatures.Remove(Creatures[i]);
                     }
+                }
+                for (int j = 0; j < Attackers.Count; j++)
+                {
                     if (Creatures[i].Toughness > Attackers[j].Toughness)
                     {
                         Block.Add("Block ");
