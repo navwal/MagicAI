@@ -308,7 +308,7 @@ namespace CISP.AI
             }
             foreach (Card n in board)
             {
-                if (n.Type == "Summon")
+                if (n.Type == "Summon" && n.Name != "Goblin Raider")
                     Creatures.Add(n);
             }
             // For combat tricks if we wanted to program it
@@ -322,28 +322,23 @@ namespace CISP.AI
             Attackers = Attackers.OrderBy(x => x.Power).ToList();
             Creatures = Creatures.OrderBy(x => x.Toughness).ToList();
             Creatures.Reverse();
+
             foreach (Card n in Attackers)
             {
                 Unblocked.Add(n);
             }
             for (int i = Creatures.Count - 1; i > 0; i--)
             {
-                foreach(Card n in Creatures)
-                {
-                    if (n.Name == "Goblin Raider")
-                    {
-                        Creatures.Remove(n);
-                    }
-                }
                 for (int j = 0; j < Attackers.Count; j++)
                 {
-                    if (Creatures[i].Toughness > Attackers[j].Toughness)
+                    if (Creatures[i].Toughness > Attackers[j].Power)
                     {
                         Block.Add("Block ");
                         Block.Add(Attackers[j].Name);
                         Block.Add("With ");
                         Block.Add(Creatures[i].Name);
                         Unblocked.Remove(Attackers[j]);
+                        i--;
                     }
                 }
             }
@@ -536,6 +531,9 @@ namespace CISP.AI
         public string Cast(Card card, List<Card> lands, string spelltarget)
         {
             string[] tland = TapLands(card, lands);
+            string Message = "";
+            string YG = " Add a forest to your hand, cast it, and tap it.";
+            string MA = " Draw a card.";
             string landtotap = "";
             /*for (int i = 0; i < tland.Length; i++)
             {
@@ -549,7 +547,15 @@ namespace CISP.AI
             //display which lands to tap
             if (spelltarget == "")
             {
-                return "tap " + landtotap + " to cast " + card.Name;
+                if (card.Idx == "mul")
+                {
+                    Message = MA;
+                }
+                else if (card.Idx == "gra")
+                {
+                    Message = YG;
+                }
+                return "tap " + landtotap + " to cast " + card.Name + Message;
             }
             else
                 return "tap " + landtotap + " to cast " + card.Name + " targeting " + spelltarget;
@@ -670,13 +676,13 @@ namespace CISP.AI
             if (spell.Color == "Green")
             {
                 color = Lands[0] - spell.Manacol;
-                if (color > 0 && Lands[1] > 0)
+                if (color >= 0) //&& Lands[1] > 0)
                 {
                     color = color + Lands[1];
                     if (color >= spell.Mananocol)
                         return true;
                 }
-                else if (color > 0 && Lands[2] > 0)
+                else if (color > 0) //&& Lands[2] > 0)
                 {
                     color = color + Lands[2];
                     if (color >= spell.Mananocol)
@@ -692,7 +698,7 @@ namespace CISP.AI
             else if (spell.Color == "Red")
             {
                 color = Lands[1] - spell.Manacol;
-                if (color > 0)
+                if (color >= 0)
                 {
                     color = color + Lands[0];
                     if (color >= spell.Mananocol)
