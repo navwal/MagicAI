@@ -233,7 +233,7 @@ namespace CISP.AI
             foreach (Card n in board)
             {
                 if (n.Type == "Summon")
-                    Creatures.Add(n);
+                    Creatures.Add(n);               
             }
             foreach (Card n in opboard)
             {
@@ -259,6 +259,10 @@ namespace CISP.AI
                 for (int i = 0; i < Creatures.Count; i++)
                 {
                     creaturestoattackwith += Creatures[i].Name + ", ";
+                    if (Creatures[i].Name == "Hollow Dogs")
+                    {
+                        Creatures[i].Power = 5;
+                    }
                 }
                 return "attack with " + creaturestoattackwith;
             }
@@ -326,6 +330,10 @@ namespace CISP.AI
             {
                 for (int j = 0; j < Attackers.Count; j++)
                 {
+                    if (Creatures[i].Name == "Goblin Raider")
+                    {
+                        Creatures.Remove(Creatures[i]);
+                    }
                     if (Creatures[i].Toughness > Attackers[j].Toughness)
                     {
                         Block.Add("Block ");
@@ -349,7 +357,7 @@ namespace CISP.AI
                 }
                 return blockers + damagedealt;
             }
-            return "Pass to next step";
+            return damagedealt + "Pass to next step";
         }
         public string Main_2()
         {
@@ -724,6 +732,24 @@ namespace CISP.AI
             oboard = board;
             oland = Lands;
             otapped = Tapped;
+        }
+
+        public void lowerHollowDogs()
+        {
+            foreach(Card n in myBoard)
+            {
+                if (n.Name == "Hollow Dogs")
+                {
+                    n.Power = 3;
+                }
+            }
+            foreach(Card n in myTapped)
+            {
+                if (n.Name == "Hollow Dogs")
+                {
+                    n.Power = 3;
+                }
+            }
         }
 
     }

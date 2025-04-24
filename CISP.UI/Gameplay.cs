@@ -315,13 +315,20 @@ namespace CISP.UI
                     else if (steps == "Damage")
                     {
                         richTextBox1.Text = "Remove any creatures that died and press next.";
+
                     }
                     else if (steps == "Blockers")
                     {
                         richTextBox1.Text = gameEngine.Defend();
                     }
-                    else 
+                    else if (steps == "End")
                     {
+                        gameEngine.lowerHollowDogs();
+                        richTextBox1.Text = "Go to next step. If it is not your turn press opponent next.";
+                    }
+                    else
+                    {
+
                         richTextBox1.Text = "Go to next step. If it is not your turn press opponent next.";
                     }
                     break;
@@ -861,12 +868,34 @@ namespace CISP.UI
 		//my health
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-
+            if (numericUpDown1.Value == 0)
+            {
+                DialogResult result = MessageBox.Show("Want to play again?", "You Lose", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    Application.Restart();
+                }
+                else if (result == DialogResult.No)
+                {
+                    Application.Exit();
+                }
+            }
         }
 		//opponent health
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
-
+            if (numericUpDown1.Value == 0)
+            {
+                DialogResult result = MessageBox.Show("Want to play again?", "You Win", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    Application.Restart();
+                }
+                else if (result == DialogResult.No)
+                {
+                    Application.Exit();
+                }
+            }
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
