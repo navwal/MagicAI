@@ -251,10 +251,10 @@ namespace CISP.AI
             // If we have no creatures able to attack, skip to next phase
             if (Creatures.Count == 0)
             {
-                return "Hit next until Main_2 Phase.";
+                return "Hit next.";
             }
             // If our opponent has no blockers, attack with everything we can
-            else if (Blockers.Count == 0)
+            else if (Creatures.Count > 0)
             {
                 for (int i = 0; i < Creatures.Count; i++)
                 {
@@ -263,7 +263,7 @@ namespace CISP.AI
                 return "attack with " + creaturestoattackwith;
             }
             // Compares our creatures toughness with blocker power and only attacks with creatures that will survive
-            for (int i = 0; i < Creatures.Count; i++)
+            /*for (int i = 0; i < Creatures.Count; i++)
             {
                 for (int j = 0; j < Blockers.Count; j++)
                 {
@@ -280,9 +280,9 @@ namespace CISP.AI
                     creaturestoattackwith += Attackers[i].Name + ", ";
                 }
                 return "Attack with " + creaturestoattackwith;
-            }
+            }*/
             else
-                return "Hit next until Main_2 Phase  .";
+                return "Hit next.";
         }
         public string Defend()
         {
@@ -648,7 +648,7 @@ namespace CISP.AI
                 {
                     landtotap += s + ", ";
                 }
-                return "Pay echo by tapping " + landtotap;
+                return "Pay echo by tapping " + landtotap + " for " + card.Name;
             }
             return "Sacrifice " + card.Name;
         }
@@ -693,10 +693,10 @@ namespace CISP.AI
             else
             {
                 color = Lands[2] - spell.Manacol;
-                if (color > 0)
+                if (color >= 0)
                 {
                     color = color + Lands[0];
-                    color = color + Lands[1];
+                    //color = color + Lands[1];
                     if (color >= spell.Mananocol)
                         return true;
                 }

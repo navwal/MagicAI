@@ -228,10 +228,10 @@ namespace CISP.UI
             c[30] = new Card("mul", "Multani's Acolyte (2)", "Summon", "Green", 0, 2, 2, 1, "Echo", true);
             c[31] = new Card("mul", "Multani's Acolyte (3)", "Summon", "Green", 0, 2, 2, 1, "Echo", true);
             c[32] = new Card("mul", "Multani's Acolyte (4)", "Summon", "Green", 0, 2, 2, 1, "Echo", true);
-            c[33] = new Card("acr", "Acridian", "Summon (1)", "Green", 1, 1, 2, 4, "Echo", true);
-            c[34] = new Card("acr", "Acridian", "Summon (2)", "Green", 1, 1, 2, 4, "Echo", true);
-            c[35] = new Card("acr", "Acridian", "Summon (3)", "Green", 1, 1, 2, 4, "Echo", true);
-            c[36] = new Card("acr", "Acridian", "Summon (4)", "Green", 1, 1, 2, 4, "Echo", true);
+            c[33] = new Card("acr", "Acridian (1)", "Summon", "Green", 1, 1, 2, 4, "Echo", true);
+            c[34] = new Card("acr", "Acridian (2)", "Summon", "Green", 1, 1, 2, 4, "Echo", true);
+            c[35] = new Card("acr", "Acridian (3)", "Summon", "Green", 1, 1, 2, 4, "Echo", true);
+            c[36] = new Card("acr", "Acridian (4)", "Summon", "Green", 1, 1, 2, 4, "Echo", true);
             c[37] = new Card("gor", "Gorilla Warrior", "Summon", "Green", 2, 1, 3, 2, "", true);
 			c[38] = new Card("gra", "Yavimaya Granger (1)", "Summon", "Green", 2, 1, 2, 2, "Echo", true);
             c[39] = new Card("gra", "Yavimaya Granger (2)", "Summon", "Green", 2, 1, 2, 2, "Echo", true);
